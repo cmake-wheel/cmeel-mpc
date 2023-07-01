@@ -26,7 +26,7 @@ ExternalProject_Add(
     "--with-mpfr=${GMP_PREFIX}" # this is not super nice.
   BUILD_COMMAND "make"
   TEST_COMMAND ${CMAKE_COMMAND} "-E" "env" "LD_LIBRARY_PATH=${GMP_PREFIX}/lib"
-               "--" "make" "check" "VERBOSE=1"
+               "--" "make" "check"
   INSTALL_COMMAND "make" "install"
   COMMAND "${CMAKE_COMMAND}" "-E" "rm"
           "${CMAKE_INSTALL_PREFIX}/lib/lib${NAME}.la")
