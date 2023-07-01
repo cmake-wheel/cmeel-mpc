@@ -10,8 +10,12 @@ pkg_check_modules(GMP gmp)
 
 if(APPLE)
   set(ORIGIN "@loader_path")
+  set(TEST_COMMAND ${CMAKE_COMMAND} "-E" "env"
+                   "DYLD_LIBRARY_PATH=${GMP_PREFIX}/lib" "--" "make" "check")
 else()
   set(ORIGIN "\$\$ORIGIN")
+  set(TEST_COMMAND ${CMAKE_COMMAND} "-E" "env"
+                   "LD_LIBRARY_PATH=${GMP_PREFIX}/lib" "--" "make" "check")
 endif()
 
 include(ExternalProject)
@@ -25,8 +29,7 @@ ExternalProject_Add(
     "./configure" "--prefix=${CMAKE_INSTALL_PREFIX}" "--with-gmp=${GMP_PREFIX}"
     "--with-mpfr=${GMP_PREFIX}" # this is not super nice.
   BUILD_COMMAND "make"
-  TEST_COMMAND ${CMAKE_COMMAND} "-E" "env" "LD_LIBRARY_PATH=${GMP_PREFIX}/lib"
-               "--" "make" "check"
+  TEST_COMMAND ${TEST_COMMAND}
   INSTALL_COMMAND "make" "install"
   COMMAND "${CMAKE_COMMAND}" "-E" "rm"
           "${CMAKE_INSTALL_PREFIX}/lib/lib${NAME}.la")
