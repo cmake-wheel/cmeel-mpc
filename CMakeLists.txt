@@ -6,8 +6,8 @@ set(VERSION 1.3.1)
 project(cmeel-${NAME} VERSION ${VERSION})
 
 include(FindPkgConfig)
-pkg_check_modules(GMP gmp)
-pkg_check_modules(MPFR mpfr)
+pkg_check_modules(GMP REQUIRED gmp)
+pkg_check_modules(MPFR REQUIRED mpfr)
 
 if(APPLE)
   set(ORIGIN "@loader_path")
