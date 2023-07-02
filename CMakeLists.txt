@@ -7,6 +7,7 @@ project(cmeel-${NAME} VERSION ${VERSION})
 
 include(FindPkgConfig)
 pkg_check_modules(GMP gmp)
+pkg_check_modules(MPFR mpfr)
 
 if(APPLE)
   set(ORIGIN "@loader_path")
@@ -27,7 +28,7 @@ ExternalProject_Add(
   CONFIGURE_COMMAND
     ${CMAKE_COMMAND} "-E" "env" "LDFLAGS=-Wl,-rpath,'${ORIGIN}/../lib'" "--"
     "./configure" "--prefix=${CMAKE_INSTALL_PREFIX}" "--with-gmp=${GMP_PREFIX}"
-    "--with-mpfr=${GMP_PREFIX}" # this is not super nice.
+    "--with-mpfr=${MPFR_PREFIX}"
   BUILD_COMMAND "make"
   TEST_COMMAND ${TEST_COMMAND}
   INSTALL_COMMAND "make" "install"
