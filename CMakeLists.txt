@@ -23,7 +23,8 @@ include(ExternalProject)
 ExternalProject_Add(
   ${NAME}
   URL "https://ftpmirror.gnu.org/gnu/${NAME}/${NAME}-${VERSION}.tar.gz"
-      DOWNLOAD_EXTRACT_TIMESTAMP OFF
+  URL_HASH "SHA1=bac1c1fa79f5602df1e29e4684e103ad55714e02"
+  DOWNLOAD_EXTRACT_TIMESTAMP OFF
   BUILD_IN_SOURCE ON
   CONFIGURE_COMMAND
     ${CMAKE_COMMAND} "-E" "env" "LDFLAGS=-Wl,-rpath,'${ORIGIN}/../lib'" "--"
